@@ -5,6 +5,7 @@ import { Container, Nav, NavDropdown, Navbar, Table } from "react-bootstrap";
 import apiAnime from "../services/apiAnime";
 import Link from "next/link";
 import { IoIosSearch } from "react-icons/io";
+
 import Pagina from "../components/Pagina";
 
 export default function PageJS() {

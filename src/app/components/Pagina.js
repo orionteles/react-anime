@@ -1,6 +1,18 @@
+import { useEffect, useState } from "react";
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
+import apiAnime from "../services/apiAnime";
 
 export default function Pagina(props) {
+
+    const [generos, setGeneros] = useState([])
+
+    useEffect(() => {
+        apiAnime.get('genres/anime').then(resultado => {
+            setGeneros(resultado.data.data)
+        })
+    }, [])
+
+
     return (
         <>
             <Navbar bg="dark" data-bs-theme="dark">
@@ -11,15 +23,14 @@ export default function Pagina(props) {
                         <Nav className="me-auto">
                             <Nav.Link href="/anime">Anime</Nav.Link>
                             <NavDropdown title="Gêneros" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.2">
-                                    Another action
-                                </NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action/3.4">
-                                    Separated link
-                                </NavDropdown.Item>
+                                {generos.map(item => (
+                                    <div key={item.mal_id}>
+                                        <NavDropdown.Item href="#action/3.1">
+                                            {item.name} ({item.count})
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Divider />
+                                    </div>
+                                ))}
                             </NavDropdown>
                         </Nav>
                     </Navbar.Collapse>
